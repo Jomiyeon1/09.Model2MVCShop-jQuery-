@@ -9,12 +9,11 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-	
 	<script type="text/javascript">
 		//page
 		function fncGetProductList(currentPage) {
 			$("#currentPage").val(currentPage);
-			$("form").attr("method" , "POST").attr("action" , "/produt/listProduct").submit();
+			$("form").attr("method" , "POST").attr("action" , "/product/listProduct?menu="+${menu}.trim()).submit();
 		}
 		
 			//°Ë»ö
