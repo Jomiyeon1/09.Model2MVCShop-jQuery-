@@ -12,45 +12,69 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<script type="text/javascript" src="../javascript/calendar.js">
-</script>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> </script>
 
 <script type="text/javascript">
-<!--
-function fncAddProduct(){
-	//Form 유효성 검증
- 	var name = document.detailForm.prodName.value;
-	var detail = document.detailForm.prodDetail.value;
-	var manuDate = document.detailForm.manuDate.value;
-	var price = document.detailForm.price.value;
-
-	if(name == null || name.length<1){
-		alert("상품명은 반드시 입력하여야 합니다.");
-		return;
-	}
-	if(detail == null || detail.length<1){
-		alert("상품상세정보는 반드시 입력하여야 합니다.");
-		return;
-	}
-	if(manuDate == null || manuDate.length<1){
-		alert("제조일자는 반드시 입력하셔야 합니다.");
-		return;
-	}
-	if(price == null || price.length<1){
-		alert("가격은 반드시 입력하셔야 합니다.");
-		return;
-	}
+	function funUpdateProduct() {
+		//유효성 검증 구현
 		
-	document.detailForm.action='/product/updateProduct';
-	document.detailForm.submit();
-}
--->
+		var name = $("input[name='prodName']").val(); 
+		var detail = $("input[name='prodDetail']").val(); 
+		var manuDate = $("input[name='manuDate']").val(); 
+		var price = $("input[name='price']").val(); 
+		
+		if(name == null || name.length < 1){
+			alert("상품명은 필수 입력 항목입니다.");
+			return;
+		}
+		
+		if(detail == null || detail.length < 1){
+			alert("상품 상세설명은 필수 입력 항목입니다.");
+			return;
+		}
+		
+		if(manuDate == null || manuDate.length < 1){
+			alert("제조일은 필수 입력 항목입니다.");
+			return;
+		}
+		
+		if(price == null || price.length < 1){
+			alert("가격은 필수 입력 항목입니다.");
+			return;
+		}
+		
+		$("form").attr("method" , "POST").attr("action" , "/product/updateProduct").submit();
+		
+	}
+	
+	
+	
+	// 수정 클릭 event
+	 $(function() {
+			
+			 $( "td.ct_btn01:contains('수정')" ).on("click" , function() {
+				//Debug..
+				//alert(  $( "td.ct_btn01:contains('수정')" ).html() );
+				funUpdateProduct();
+			});
+		});
+	//취소 클릭 event
+	$(function() {	
+			 $( "td.ct_btn01:contains('취소')" ).on("click" , function() {
+				//Debug..
+				//alert(  $( "td.ct_btn01:contains('취소')" ).html() );
+				history.go(-1);
+			});
+		});
+
+
 </script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
-<form name="detailForm" method="post">
+<!-- <form name="detailForm" method="post"> -->
+<form name="detailForm" >
 
 <input type="hidden" name="prodNo" value="${product.prodNo}"/>
 
@@ -160,7 +184,8 @@ function fncAddProduct(){
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-						<a href="javascript:fncAddProduct();">수정</a>
+						<!-- <a href="javascript:funUpdateProduct();">수정</a> -->
+						수정
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -170,7 +195,8 @@ function fncAddProduct(){
 						<img src="/images/ct_btnbg01.gif"width="17" height="23"/>
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:history.go(-1)">취소</a>
+						<!-- <a href="javascript:history.go(-1)">취소</a> -->
+						취소
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

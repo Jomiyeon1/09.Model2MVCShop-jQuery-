@@ -7,21 +7,59 @@
 <title>상품 목록조회</title>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<script type="text/javascript">
-	function fncGetUserList(currentPage) {
-	document.getElementById("currentPage").value = currentPage;
-   	document.detailForm.submit();		
-	}
-</script>
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	
+	<script type="text/javascript">
+		//page
+		function fncGetProductList(currentPage) {
+			$("#currentPage").val(currentPage);
+			$("form").attr("method" , "POST").attr("action" , "/produt/listProduct").submit();
+		}
+		
+			//검색
+ 			$(function() {
+				 //<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
+				 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
+					//Debug..
+					alert(  $( "td.ct_btn01:contains('검색')" ).html() );
+					fncGetProductList(1);
+					
+					
+			});
+				 /*
+				 <c:if test="${menu eq 'search'}">
+						<a href="/product/getProduct?prodNo=${product.prodNo}">${product.prodName}</a>
+					</c:if>
+					<c:if test="${menu eq 'manage'}">
+						<a href="/product/updateProduct?prodNo=${product.prodNo}">${product.prodName}</a> 
+					</c:if>
+				 
+				 */
+				 
+				 $( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+						//Debug..
+						//alert(  $( this ).text().trim() );
+						if(${menu eq 'search'}){
+						self.location ="/product/getProduct?prodNo=${product.prodNo}";
+						}
+				});
+				 
+				 
+				 $(".ct_list_pop:nth-child(2n+1)" ).css("background-color" , "lavenderblush");	 
+ 		});
+	 
+		
+	</script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
 	<div style="width: 98%; margin-left: 10px;">
 		<%-- //${menu} --%>
-		<form name="detailForm" action="/product/listProduct?menu=${menu}" method="post">
+		<%-- <form name="detailForm" action="/product/listProduct?menu=${menu}" method="post"> --%>
+		<form name="detailForm">
+		
 			<table width="100%" height="37" border="0" cellpadding="0"
 				cellspacing="0">
 				<tr>
@@ -73,9 +111,10 @@
 							<tr>
 								<td width="17" height="23"><img
 									src="/images/ct_btnbg01.gif" width="17" height="23"></td>
-								<td background="/images/ct_btnbg02.gif" class="ct_btn01"
-									style="padding-top: 3px;"><a
-									href="javascript:fncGetUserList('1');">검색</a></td>
+								<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
+									<!-- <a href="javascript:fncGetUserList('1');">검색</a> -->
+									검색
+									</td>
 								<td width="14" height="23"><img
 									src="/images/ct_btnbg03.gif" width="14" height="23"></td>
 							</tr>
@@ -114,12 +153,14 @@
 					<td align="center">${ i }</td>
 					<td></td>
 					<td align="left">
+					<!--  -->
 					<c:if test="${menu eq 'search'}">
 						<a href="/product/getProduct?prodNo=${product.prodNo}">${product.prodName}</a>
 					</c:if>
 					<c:if test="${menu eq 'manage'}">
 						<a href="/product/updateProduct?prodNo=${product.prodNo}">${product.prodName}</a> 
 					</c:if>
+					<!--  -->
 					</td>
 					<td></td>
 					<td align="left">${product.price} </td>
