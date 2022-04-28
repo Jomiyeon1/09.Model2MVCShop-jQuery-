@@ -10,10 +10,12 @@
 
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
-		//page
-		function fncGetProductList(currentPage) {
+		//page		
+		function fncGetList(currentPage) {
 			$("#currentPage").val(currentPage);
-			$("form").attr("method" , "POST").attr("action" , "/product/listProduct?menu="+${menu}.trim()).submit();
+			
+					$("form").attr("method" , "POST").attr("action" , "/product/listProduct?menu=${menu}").submit();
+
 		}
 		
 			//검색
@@ -22,29 +24,39 @@
 				 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
 					//Debug..
 					alert(  $( "td.ct_btn01:contains('검색')" ).html() );
-					fncGetProductList(1);
+					fncGetList(1);
 					
 					
 			});
-				 /*
-				 <c:if test="${menu eq 'search'}">
-						<a href="/product/getProduct?prodNo=${product.prodNo}">${product.prodName}</a>
-					</c:if>
-					<c:if test="${menu eq 'manage'}">
-						<a href="/product/updateProduct?prodNo=${product.prodNo}">${product.prodName}</a> 
-					</c:if>
-				 
-				 */
-				 
-				 $( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+
+/* 				 $( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
 						//Debug..
-						//alert(  $( this ).text().trim() );
-						if(${menu eq 'search'}){
-						self.location ="/product/getProduct?prodNo=${product.prodNo}";
+						alert(  $(this).prop("prodNo") );
+						if(${menu == 'search'}){
+						self.location ="/product/getProduct?prodNo="+$(this).attr("prodNo");
 						}
-				});
-				 
-				 
+						
+						if(${menu == 'manage'}){
+							self.location ="/product/updateProduct?prodNo="+$(this).attr("prodNo");
+						}
+				}); */
+				
+				<c:if test="${menu eq 'search'}">
+				$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+		               //Debug..
+		               //alert(  $( this ).text().trim() );
+		               self.location ="/product/getProduct?prodNo="+$(this).attr("prodNo");
+		         });
+		         </c:if>
+		         
+		         <c:if test="${menu eq 'manage'}">
+		         $( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+		            //Debug..
+		            //alert(  $( this ).text().trim() );
+		            self.location ="/product/updateProduct?prodNo="+$(this).attr("prodNo");
+		         });
+		         </c:if>
+				  
 				 $(".ct_list_pop:nth-child(2n+1)" ).css("background-color" , "lavenderblush");	 
  		});
 	 
@@ -111,7 +123,7 @@
 								<td width="17" height="23"><img
 									src="/images/ct_btnbg01.gif" width="17" height="23"></td>
 								<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-									<!-- <a href="javascript:fncGetUserList('1');">검색</a> -->
+									<!-- <a href="javascript:fncGetProductList('1');">검색</a> -->
 									검색
 									</td>
 								<td width="14" height="23"><img
@@ -151,14 +163,15 @@
 				<tr class="ct_list_pop">
 					<td align="center">${ i }</td>
 					<td></td>
-					<td align="left">
+					<td align="left" ProdNo=${product.prodNo}>
 					<!--  -->
-					<c:if test="${menu eq 'search'}">
+<%-- 				<c:if test="${menu eq 'search'}">
 						<a href="/product/getProduct?prodNo=${product.prodNo}">${product.prodName}</a>
 					</c:if>
 					<c:if test="${menu eq 'manage'}">
 						<a href="/product/updateProduct?prodNo=${product.prodNo}">${product.prodName}</a> 
-					</c:if>
+					</c:if> --%>
+						${product.prodName}
 					<!--  -->
 					</td>
 					<td></td>

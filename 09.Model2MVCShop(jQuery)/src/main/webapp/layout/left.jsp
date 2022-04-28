@@ -65,7 +65,7 @@
 			$( ".Depth03:contains('최근 본 상품')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('최근 본 상품')" ) );
-		 		$(window.parent.frames["rightFrame"].document.location).attr("href","javascript:history()");
+		 		history();
 			});	
 		 	
 		 });
